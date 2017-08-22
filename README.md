@@ -10,11 +10,11 @@ The simplest way to take picture with Baslen camera.
 3. execute command
 
 ```
-./Grab 
+./Grab file_name.tiff
 
 ```
 
-4.  test2.tiff is the image taken
+4.  file_name.tiff is the image taken
 
 
 
