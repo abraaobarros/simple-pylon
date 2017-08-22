@@ -31,7 +31,7 @@ using namespace Pylon;
 using namespace std;
 
 // Number of images to be grabbed.
-static const uint32_t c_countOfImagesToGrab = 5;
+static const uint32_t c_countOfImagesToGrab = 1;
 
 int main(int argc, char* argv[])
 {
@@ -66,7 +66,7 @@ int main(int argc, char* argv[])
         while ( camera.IsGrabbing())
         {
             // Wait for an image and then retrieve it. A timeout of 5000 ms is used.
-            camera.RetrieveResult( 5000, ptrGrabResult, TimeoutHandling_ThrowException);
+            camera.RetrieveResult( 3000, ptrGrabResult, TimeoutHandling_ThrowException);
 
             // Image grabbed successfully?
             if (ptrGrabResult->GrabSucceeded())
@@ -76,8 +76,12 @@ int main(int argc, char* argv[])
                 cout << "SizeY: " << ptrGrabResult->GetHeight() << endl;
                 const uint8_t *pImageBuffer = (uint8_t *) ptrGrabResult->GetBuffer();
                 
-                CImagePersistence::Save(ImageFileFormat_Png, "test.png", ptrGrabResult);
-                
+                if (argc == 1) {
+                    CImagePersistence::Save(ImageFileFormat_Png, argv[0], ptrGrabResult);
+                }else{
+                    CImagePersistence::Save(ImageFileFormat_Png, "test.tiff" , ptrGrabResult);
+                }
+            
                 
                 cout << "Gray value of first pixel: " << (uint32_t) pImageBuffer[0] << endl << endl;
                 
